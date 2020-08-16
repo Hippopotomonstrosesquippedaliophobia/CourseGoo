@@ -290,7 +290,7 @@ public class Login extends javax.swing.JFrame {
         {
             if(files.loginJson(u, encryptedString, k, time, host, os, atmps ))
             {
-                uHome home = new uHome();
+                uHome home = new uHome(true);
                 home.setVisible(true);
                 this.dispose();
             }else
