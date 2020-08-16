@@ -5,30 +5,59 @@
  */
 package coursegoo;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.text.View;
 
 /**
  *
  * @author Bronj
  */
-public class CourseGo extends javax.swing.JFrame {
-
+public class uHome extends javax.swing.JFrame {
+    
     /**
      * Creates new form CourseGo
      */
-    public CourseGo() {
+    public uHome() {
         initComponents();
     }
     
-    //Globals are bad.. but this exists nonetheless
-    int xMouse, yMouse;
+    //Globals are bad.. but these exist nonetheless
+    private static int xMouse, yMouse; //If not static, the values of these variables reset upon each new update to 0,0
     
+    private final settingsCalls settings = new settingsCalls();    
+    private final sideOperations sideOp = new sideOperations();
+    
+    private int attempts = 0;    
+    
+    //setters
+    public void setAttempts(int a)
+    {        
+        attempts = a;
+    }
+    public void setxMouse(int xM)
+    {        
+        xMouse = xM;
+    }
+    public void setyMouse(int yM)
+    {        
+        yMouse = yM;
+    }
+    
+    //getters    
+    public int getAttempts()
+    {        
+        return attempts;
+    }
+    public int getxMouse()
+    {        
+        return xMouse;
+    }
+    public int getyMouse()
+    {        
+        return yMouse;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,11 +71,6 @@ public class CourseGo extends javax.swing.JFrame {
         windowBar = new javax.swing.JPanel();
         close = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
-        logo = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
-        tip = new javax.swing.JLabel();
-        login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("login");
@@ -95,7 +119,7 @@ public class CourseGo extends javax.swing.JFrame {
         windowBarLayout.setHorizontalGroup(
             windowBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowBarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 621, Short.MAX_VALUE)
                 .addComponent(minimize, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -109,62 +133,17 @@ public class CourseGo extends javax.swing.JFrame {
                 .addGap(4, 4, 4))
         );
 
-        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        logo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        tip.setForeground(new java.awt.Color(153, 0, 153));
-        tip.setText("Don't have an account? Register here!");
-        tip.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tip.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tipMouseClicked(evt);
-            }
-        });
-
-        login.setText("Login");
-        login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
         container.setLayout(containerLayout);
         containerLayout.setHorizontalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(windowBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
-                .addGap(0, 23, Short.MAX_VALUE)
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(password)
-                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(tip, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(containerLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(62, 62, 62))
         );
         containerLayout.setVerticalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(containerLayout.createSequentialGroup()
                 .addComponent(windowBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tip, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addContainerGap(538, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,19 +165,11 @@ public class CourseGo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void windowBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_windowBarMousePressed
-        //Call classes 
-        settingsCalls drag = new settingsCalls();
-        sideOperations side = new sideOperations();
-        
         //get and split string version of x and y values, and convert to int
-        String xNy = drag.itemClick(evt);
-        String[] coords = xNy.split("\\s+");
+        //Info then logged in xMouse and yMouse back in this scope.
+        settings.itemClick(evt);       
         
-        //convert to Integer
-        xMouse = side.toInt(coords[0]);
-        yMouse = side.toInt(coords[1]);        
-        
-        //send information to drag function
+        //information on mouse locations logged for drag function
         windowBarMouseDragged(evt);   
     }//GEN-LAST:event_windowBarMousePressed
 
@@ -211,37 +182,15 @@ public class CourseGo extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeMouseClicked
 
     private void windowBarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_windowBarMouseDragged
+        //Was unable to move window. Must discover how to pass current instance via function possibly?
+        //Hard coding into this function
+        
+        //settings.mouseDragged(evt, xMouse, yMouse);       
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-
-        /*Debug Movement output        
-        System.out.println("X: " + x + " Y: " + y);         
-        */
         
-        this.setLocation(x - xMouse, y - yMouse);
+        this.setLocation(x - getxMouse(), y - getyMouse());
     }//GEN-LAST:event_windowBarMouseDragged
-
-    private void tipMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tipMouseClicked
-        //OPEN Register page
-    }//GEN-LAST:event_tipMouseClicked
-
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        //Get information from login fields
-        String u = username.getText();
-        String p = new String(password.getPassword());
-        
-        //Get login information from file
-        
-        
-        
-        json json = new json();
-        try {
-            json.writeJson();
-        } catch (IOException ex) {
-            Logger.getLogger(CourseGo.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(rootPane, "Could not access database!");
-        }
-    }//GEN-LAST:event_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,33 +209,33 @@ public class CourseGo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CourseGo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(uHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CourseGo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(uHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CourseGo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(uHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CourseGo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(uHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CourseGo().setVisible(true);                
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new uHome().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel close;
     private javax.swing.JPanel container;
-    private javax.swing.JButton login;
-    protected javax.swing.JLabel logo;
     private javax.swing.JLabel minimize;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JLabel tip;
-    private javax.swing.JTextField username;
     private javax.swing.JPanel windowBar;
     // End of variables declaration//GEN-END:variables
 }
